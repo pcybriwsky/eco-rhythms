@@ -49,7 +49,7 @@ const myP5Sketch = (p) => {
     p.createCanvas(window.innerWidth, window.innerHeight);
   }
 
-  let inc = 10;
+  let inc = 10
   let drawing = null;
   let lineHeight = 30;
   let fontSize = lineHeight * 0.8;
