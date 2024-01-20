@@ -215,7 +215,7 @@ const myP5Sketch = (p) => {
       p.textSize(fontSize * 4);
       p.fill(255);
       p.textAlign(p.CENTER, p.CENTER);
-      p.text("Nebula", p.width / 2, p.height / 2);
+      p.text("Nebulae", p.width / 2, p.height / 2);
       p.textSize(fontSize);
       p.text("Live data environment visualization. Click to connect Magic", p.width / 2, p.height / 2 + fontSize * 4);
 
@@ -498,9 +498,8 @@ const myP5Sketch = (p) => {
     p.beginShape();
     let inc = 360 / multi;
     for (let ang = 0; ang < 360 + 2 * inc; ang += inc) {
-      let r1, r2;
-      r1 = p.cos(ang) + 1;
-      r2 = p.sin(ang) + 1;
+      let r1 = p.cos(ang) + 1;
+      let r2 = p.sin(ang) + 1;
       let r = size + p.noise(k * r2, k * r1, t) * noisiness;
       let x = xCenter + r * p.cos(ang);
       let y = yCenter + r * p.sin(ang);
