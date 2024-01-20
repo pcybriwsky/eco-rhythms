@@ -1,3 +1,4 @@
+
 import { InkLine } from "../Functions/InkLine";
 import { Poly } from "../Functions/Watercolor";
 import { dataURLtoFile, shareFile } from "../Functions/filesharing";
@@ -51,9 +52,12 @@ const myP5Sketch = (p) => {
     p.pixelDensity(1);
     p.frameRate(10);
     p.createCanvas(window.innerWidth, window.innerHeight);
+    lineHeight = 30 * p.height / 1900;
+    fontSize = lineHeight * 0.6
+    emojiSize = fontSize * 0.8;
     kMax = p.random(0.6, 1.0);
     step = 0.01;
-
+    
     typingWidth = p.width / 10;
 
     dayObject.light = p.random(0, 4095);
@@ -78,7 +82,7 @@ const myP5Sketch = (p) => {
 
 
   let lineHeight = 30;
-  let fontSize = lineHeight * 0.6
+  let fontSize = lineHeight * 0.8
   let emojiSize = fontSize * 0.8;
   let maxLines = 6;
   let currentLine = "";
@@ -88,17 +92,21 @@ const myP5Sketch = (p) => {
   let typingWidth = 0;
   let targetLine = ""; // The line that is being typed
   let targetIndex = 0;
-  let wait = 30 // Index to track which character to type next
+  let wait = 25 // Index to track which character to type next
   let waitTime = wait; // Time to wait after a line is completed
   let waiting = false; // Indicates if we are currently waiting
   let valueIndex = 0;
   let padding = 300;
 
+  let showAboutInfo = false;
+
+  p.showAbout = () => {
+    showAboutInfo = true;
+  }
+
 
 
   p.draw = () => {
-    // live version -- will need to remove sliders and everything 
-    
     if (isMagic && magic.modules.light != null && magic.modules.light != undefined) {
       // console.log(magic.modules)
       p.angleMode(p.DEGREES);
@@ -166,7 +174,7 @@ const myP5Sketch = (p) => {
       p.fill(255);
       let t = p.frameCount / 150
 
-      p.drawVitals(currentObject.light, currentObject.temperature, currentObject.humidity, currentObject.pressure, currentObject.iaq, currentObject.co2, t, center)
+      p.drawNebula(currentObject.light, currentObject.temperature, currentObject.humidity, currentObject.pressure, currentObject.iaq, currentObject.co2, t, center)
 
 
 
@@ -175,14 +183,14 @@ const myP5Sketch = (p) => {
       center = 4 * p.height / 8;
 
 
-      p.drawVitals(dayObject.light, dayObject.temperature, dayObject.humidity, dayObject.pressure, dayObject.iaq, dayObject.co2, t, center)
+      p.drawNebula(dayObject.light, dayObject.temperature, dayObject.humidity, dayObject.pressure, dayObject.iaq, dayObject.co2, t, center)
 
       p.fill(255);
       center = 6 * p.height / 8;
 
 
-      p.drawVitals(allTimeObject.light, allTimeObject.temperature, allTimeObject.humidity, allTimeObject.pressure, allTimeObject.iaq, allTimeObject.co2, t, center)
-      p.graphVitals();
+      p.drawNebula(allTimeObject.light, allTimeObject.temperature, allTimeObject.humidity, allTimeObject.pressure, allTimeObject.iaq, allTimeObject.co2, t, center)
+      p.graphNebula();
 
       p.textAlign(p.RIGHT, p.BOTTOM);
       p.textSize(fontSize);
@@ -207,7 +215,7 @@ const myP5Sketch = (p) => {
       p.textSize(fontSize * 4);
       p.fill(255);
       p.textAlign(p.CENTER, p.CENTER);
-      p.text("Vitals", p.width / 2, p.height / 2);
+      p.text("Nebula", p.width / 2, p.height / 2);
       p.textSize(fontSize);
       p.text("Live data environment visualization. Click to connect Magic", p.width / 2, p.height / 2 + fontSize * 4);
 
@@ -216,12 +224,91 @@ const myP5Sketch = (p) => {
     }
 
 
+    if (showAboutInfo) {
+      p.clear();
+      p.background(0)
+      lightSlider.hide()
+      humiditySlider.hide()
+      pressureSlider.hide()
+      co2Slider.hide()
+      iaqSlider.hide()
+      temperatureSlider.hide()
+
+      p.textFont(p.font);
+      p.textSize(fontSize*2);
+      p.fill(255);
+      p.textAlign(p.CENTER, p.CENTER);
+      p.text("Nebulae", p.width / 2, p.height / 8);
+      p.textSize(fontSize*1);
+      p.text("A generative and data art piece by Pete Cybriwsky", p.width / 2, p.height / 8 + lineHeight*2);
+      p.textSize(fontSize);
+      p.textAlign(p.CENTER, p.CENTER);
+      let textPadding = 60;
+      p.text("This is a demo version of a real-time generative and data art piece to be placed in Charlottesville, VA. The purpose of the piece is to highlight 'nebulous' changes in the environment over the course of its existence through a series of moving rings that resemble nebulae.", textPadding, 2 * p.height / 8, p.width - 2 * textPadding);
+      p.text("The piece will be connected to a sensor that measures the environment around it, including light, humidity, pressure, IAQ, temperature, and CO2 levels. It will simultaneously display the current conditions, as well as the conditions over the last 24 hours and since initialization.", textPadding, 2 * p.height / 8 + lineHeight*4,  p.width - 2 * textPadding);
+      p.text("The piece will be made of a series of rings that will change color and size based on the current conditions. The rings will be made of a series of points that will be connected by a curve.", textPadding, 2 * p.height / 8 + lineHeight*8,  p.width - 2 * textPadding);
+      p.text("Certain conditions (temperature + pressure) are mapped to a range that is specific to Charlottesvilles 2023 highs and lows to create a relevant range in outputs for this project. More information on how each impact the piece can be found below.", textPadding, 2 * p.height / 8 + lineHeight*12,  p.width - 2 * textPadding);
+
+
+      p.textFont(p.emoji);
+      p.textSize(emojiSize);
+      p.textAlign(p.CENTER, p.CENTER);
+      p.text("🔅", p.width / 2, 4 * p.height / 8);
+      p.textFont(p.font);
+      p.textSize(fontSize);
+      p.text("Light", p.width / 2, 4 * p.height / 8 + lineHeight);
+      p.text("The thickness of the rings and the brightness of the piece is determined by the light sensor. The light sensor measures the amount of light in lux, values ranging from 0 - 4095.", textPadding, 4 * p.height / 8 + lineHeight*2,  p.width - 2 * textPadding);
+
+      p.textFont(p.emoji);
+      p.textSize(emojiSize);
+      p.textAlign(p.CENTER, p.CENTER);
+      p.text("💧", p.width / 2, 4.5 * p.height / 8);
+      p.textFont(p.font);
+      p.textSize(fontSize);
+      p.text("Humidity", p.width / 2, 4.5 * p.height / 8 + lineHeight);
+      p.text("The humidity impacts the smoothness of the rings, rounding them out as it get's more humid. Values ranging from 0 - 90 %.", textPadding, 4.5 * p.height / 8 + lineHeight*2,  p.width - 2 * textPadding);
+      p.textFont(p.emoji);
+      p.textSize(emojiSize);
+      p.textAlign(p.CENTER, p.CENTER);
+      p.text("🔳", p.width / 2, 5 * p.height / 8);
+      p.textFont(p.font);
+      p.textSize(fontSize);
+      p.text("Pressure", p.width / 2, 5 * p.height / 8 + lineHeight);
+      p.text("The pressure determines how confined the rings are, with higher pressure condesing the piece. Values ranging from 980 - 1050 hPa.", textPadding, 5 * p.height / 8 + lineHeight*2,  p.width - 2 * textPadding);
+
+      p.textFont(p.emoji);
+      p.textSize(emojiSize);
+      p.textAlign(p.CENTER, p.CENTER);
+      p.text("💨", p.width / 2, 5.5 * p.height / 8);
+      p.textFont(p.font);
+      p.textSize(fontSize);
+      p.text("IAQ", p.width / 2, 5.5 * p.height / 8 + lineHeight);
+      p.text("The IAQ impacts the texture of the rings, with higher IAQ adding more noise and texture. Values ranging from 0 - 500 ppm.", textPadding, 5.5 * p.height / 8 + lineHeight*2,  p.width - 2 * textPadding);
+
+      p.textFont(p.emoji);
+      p.textSize(emojiSize);
+      p.textAlign(p.CENTER, p.CENTER);
+      p.text("🌡️", p.width / 2, 6 * p.height / 8);
+      p.textFont(p.font);
+      p.textSize(fontSize);
+      p.text("Temperature", p.width / 2, 6 * p.height / 8 + lineHeight);
+      p.text("The temperature impacts the color of the rings, with warmer temperatures creating more red colors and colder temperatures creating more blue. Values ranging from 14 - 104 °F.", textPadding, 6 * p.height / 8 + lineHeight*2,  p.width - 2 * textPadding);
+
+      p.textFont(p.emoji);
+      p.textSize(emojiSize);
+      p.textAlign(p.CENTER, p.CENTER);
+      p.text("🌱", p.width / 2, 6.5 * p.height / 8);
+      p.textFont(p.font);
+      p.textSize(fontSize);
+      p.text("CO2", p.width / 2, 6.5 * p.height / 8 + lineHeight);
+      p.text("The CO2 impacts the hole of the rings, with higher CO2 values creating a larger hole. Values ranging from 200 - 1500 ppm.", textPadding, 6.5 * p.height / 8 + lineHeight*2,  p.width - 2 * textPadding);
+    }
 
   }
 
 
 
-  p.drawVitals = (light, temp, humidity, pressure, iaq, co2, t, center) => {
+  p.drawNebula = (light, temp, humidity, pressure, iaq, co2, t, center) => {
     let tempMulti = p.map(temp, -10, 38, 0, 1);
     let pressureMulti = p.map(pressure, 980, 1050, 0, 1, true); // p
     let lightMulti = p.map(light, 0, 4095, 0, 1, true);
@@ -236,7 +323,7 @@ const myP5Sketch = (p) => {
       let alpha = p.pow(1 - ((i) / n), 3 - 2 * (lightMulti));
       let size = (radius + i * inter) * ((1 - co2Multi) + 0.1);
       let k = kMax * p.sqrt((i * (iaqMulti + 0.1)) / n)
-      let noisiness = maxNoise * (i / n) * (1 - pressureMulti);
+      let noisiness = maxNoise * (i / n) * (1.6 - 1.5*pressureMulti);
       p.strokeWeight(1 + tempMulti + 2 * lightMulti + (i / n) * 5);
       p.stroke(255, 0, 0, alpha * 255);
       p.lightRing((size * tempMulti), p.width / 2, center, k, t - i * step, noisiness, angleStep);
@@ -251,7 +338,7 @@ const myP5Sketch = (p) => {
     p.noStroke()
   }
 
-  p.graphVitals = () => {
+  p.graphNebula = () => {
     let center = 2 * p.height / 8 - 60
     p.textSize(fontSize);
     p.fill(255);
@@ -332,7 +419,7 @@ const myP5Sketch = (p) => {
     let allTimePressureLength = p.map(allTimeObject.pressure, 980, 1050, 0, p.width / 10, true);
     let allTimeIaqLength = p.map(allTimeObject.iaq, 0, 500, 0, p.width / 10, true);
     let allTimeTemperatureLength = p.map(allTimeObject.temperature, -10, 38, 0, p.width / 10, true);
-    let allTimeCo2Length = p.map(allTimeObject.co2, 200, 1500, 0, p.width / 10, true);
+    let allTimeCo2Length = p.map(allTimeObject.co2, 200, 1500, 0, p.width / 10);
 
     p.textAlign(p.LEFT, p.TOP);
 
@@ -487,18 +574,21 @@ const myP5Sketch = (p) => {
   }
 
   let isMagic = false
-  p.mousePressed = async () => {
-    if (!isMagic) {
-      try {
 
+  p.mousePressed = async () => {
+    if (p.mouseX > p.width - 100 && p.mouseY < 100 && !showAboutInfo) {
+      console.log('info')
+      p.showAbout();
+    }
+    else if (showAboutInfo) {
+      showAboutInfo = false;
+    }
+
+    if (!isMagic) {
         magic.connect();
         console.log(magic.modules);
         isMagic = true;
-
-      } catch (e) {
-        console.log(e);
       }
-    }
   };
 
   p.windowResized = () => {
@@ -507,3 +597,4 @@ const myP5Sketch = (p) => {
 };
 
 export default myP5Sketch;
+

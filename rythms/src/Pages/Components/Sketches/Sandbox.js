@@ -110,7 +110,7 @@ const myP5Sketch = (p) => {
   let typingWidth = 0;
   let targetLine = ""; // The line that is being typed
   let targetIndex = 0;
-  let wait = 3 // Index to track which character to type next
+  let wait = 25 // Index to track which character to type next
   let waitTime = wait; // Time to wait after a line is completed
   let waiting = false; // Indicates if we are currently waiting
   let valueIndex = 0;
@@ -195,7 +195,7 @@ const myP5Sketch = (p) => {
       p.textSize(fontSize * 0.8);
       p.text("Use sliders to change Current output", 10, 8.25 * lineHeight);
       p.text("'24 Hours' and 'Since Initialization' stats are randomized on load", 10, 9.25 * lineHeight);
-      p.text("Current conditions impact on long-term nebula are accelerated 5000x compared to real-time data stream", 10, 10.25 * lineHeight);
+      p.text("Current conditions impact on long-term nebulae are accelerated 5000x compared to real-time data stream", 10, 10.25 * lineHeight);
     }
     p.textSize(fontSize);
     p.fill(255);
@@ -247,13 +247,13 @@ const myP5Sketch = (p) => {
       p.textSize(fontSize*2);
       p.fill(255);
       p.textAlign(p.CENTER, p.CENTER);
-      p.text("Nebula", p.width / 2, p.height / 8);
+      p.text("Nebulae", p.width / 2, p.height / 8);
       p.textSize(fontSize*1);
       p.text("A generative and data art piece by Pete Cybriwsky", p.width / 2, p.height / 8 + lineHeight*2);
       p.textSize(fontSize);
       p.textAlign(p.CENTER, p.CENTER);
       let textPadding = 60;
-      p.text("This is a demo version of a real-time generative and data art piece to be placed in Charlottesville, VA. The purpose of the piece is to highlight 'nebulous' changes in the environment over the course of its existence through a series of moving rings that resemble nebulas.", textPadding, 2 * p.height / 8, p.width - 2 * textPadding);
+      p.text("This is a demo version of a real-time generative and data art piece to be placed in Charlottesville, VA. The purpose of the piece is to highlight 'nebulous' changes in the environment over the course of its existence through a series of moving rings that resemble nebulae.", textPadding, 2 * p.height / 8, p.width - 2 * textPadding);
       p.text("The piece will be connected to a sensor that measures the environment around it, including light, humidity, pressure, IAQ, temperature, and CO2 levels. It will simultaneously display the current conditions, as well as the conditions over the last 24 hours and since initialization.", textPadding, 2 * p.height / 8 + lineHeight*4,  p.width - 2 * textPadding);
       p.text("The piece will be made of a series of rings that will change color and size based on the current conditions. The rings will be made of a series of points that will be connected by a curve.", textPadding, 2 * p.height / 8 + lineHeight*8,  p.width - 2 * textPadding);
       p.text("Certain conditions (temperature + pressure) are mapped to a range that is specific to Charlottesvilles 2023 highs and lows to create a relevant range in outputs for this project. More information on how each impact the piece can be found below.", textPadding, 2 * p.height / 8 + lineHeight*12,  p.width - 2 * textPadding);
