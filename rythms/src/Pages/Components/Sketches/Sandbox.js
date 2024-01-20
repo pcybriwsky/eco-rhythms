@@ -51,6 +51,9 @@ const myP5Sketch = (p) => {
     p.pixelDensity(1);
     p.frameRate(10);
     p.createCanvas(window.innerWidth, window.innerHeight);
+    lineHeight = 30 * p.height / 1900;
+    fontSize = lineHeight * 0.6
+    emojiSize = fontSize * 0.8;
     kMax = p.random(0.6, 1.0);
     step = 0.01;
     lightSlider = p.createSlider(0, 4095, 2000);
@@ -60,12 +63,12 @@ const myP5Sketch = (p) => {
     temperatureSlider = p.createSlider(-10, 40, 15);
     co2Slider = p.createSlider(200, 1500, 550);
 
-    lightSlider.position(10, 10);
-    humiditySlider.position(10, 30);
-    pressureSlider.position(10, 50);
-    iaqSlider.position(10, 70);
-    temperatureSlider.position(10, 90);
-    co2Slider.position(10, 110);
+    lightSlider.position(10, lineHeight);
+    humiditySlider.position(10, 2 * lineHeight);
+    pressureSlider.position(10, 3 * lineHeight);
+    iaqSlider.position(10, 4 * lineHeight);
+    temperatureSlider.position(10, 5 * lineHeight);
+    co2Slider.position(10, 6 * lineHeight);
 
     lightSliderVal = lightSlider.value(); // Range is 0-4095
     humiditySliderVal = humiditySlider.value(); // Range is 0-90
@@ -97,7 +100,7 @@ const myP5Sketch = (p) => {
 
 
   let lineHeight = 30;
-  let fontSize = lineHeight * 0.6
+  let fontSize = lineHeight * 0.8
   let emojiSize = fontSize * 0.8;
   let maxLines = 6;
   let currentLine = "";
@@ -117,60 +120,9 @@ const myP5Sketch = (p) => {
 
   p.draw = () => {
     // live version -- will need to remove sliders and everything 
+    
     if (isMagic && magic.modules.light != null && magic.modules.light != undefined) {
-      // lightSlider.hide();
-      // humiditySlider.hide();
-      // pressureSlider.hide();
-      // iaqSlider.hide();
-      // temperatureSlider.hide();
-      // co2Slider.hide();
-
-      // p.angleMode(p.DEGREES);
-      // p.noFill();
-      // p.noStroke();
-      // p.blendMode(p.BLEND);
-      // p.background(0);
-      // p.blendMode(p.LIGHTEST);
-
-      // let light = Number(magic.modules.light.raw.brightness) ; // Range is 0-4095
-      // let humidity = Number(magic.modules.environment.raw.humidity); // Range is 0-90
-      // let pressure = Number(magic.modules.environment.raw.pressure)/100; // Range is 300 hPa to 1100 hPa
-      // let iaq = Number(magic.modules.environment.raw.iaq); // Range is 0-500
-      // let temperature = Number(magic.modules.environment.raw.temperature); // Range is -40 to 85 degrees C
-      // let co2 = Number(magic.modules.environment.raw.co2); // Ask Lance 
-
-
-      // p.stroke(255);
-      // p.textSize(20);
-      // p.text("You are connected to Magic", 10, 150);
-      // p.textSize(fontSize);
-      // p.text("Click to disconnect from Magic", 10, 170);
-
-
-      // currentObject.light = light;
-      // currentObject.humidity = humidity;
-      // currentObject.pressure = pressure;
-      // currentObject.iaq = iaq;
-      // currentObject.temperature = temperature;
-      // currentObject.co2 = co2;
-
-      // let timeSinceInitialization = new Date().getTime()/1000 - initialization / 1000;
-      // let multi = Math.max(1 / (timeSinceInitialization * 10), 1 / (86400 * 10));
-      // dayObject.light = light * multi + dayObject.light * (1 - multi);
-      // dayObject.humidity = humidity * multi + dayObject.humidity * (1 - multi);
-      // dayObject.pressure = pressure * multi + dayObject.pressure * (1 - multi);
-      // dayObject.iaq = iaq * multi + dayObject.iaq * (1 - multi);
-      // dayObject.temperature = temperature * multi + dayObject.temperature * (1 - multi);
-      // dayObject.co2 = co2 * multi + dayObject.co2 * (1 - multi);
-
-
-      // multi = 1 / (timeSinceInitialization * 10);
-      // allTimeObject.light = light * multi + allTimeObject.light * (1 - multi);
-      // allTimeObject.humidity = humidity * multi + allTimeObject.humidity * (1 - multi);
-      // allTimeObject.pressure = pressure * multi + allTimeObject.pressure * (1 - multi);
-      // allTimeObject.iaq = iaq * multi + allTimeObject.iaq * (1 - multi);
-      // allTimeObject.temperature = temperature * multi + allTimeObject.temperature * (1 - multi);
-      // allTimeObject.co2 = co2 * multi + allTimeObject.co2 * (1 - multi);
+      
     }
 
     // Current file
@@ -228,21 +180,21 @@ const myP5Sketch = (p) => {
     p.background(0);
 
     if(!isMagic){
-      p.textAlign(p.LEFT, p.BOTTOM);
+      p.textAlign(p.LEFT, p.CENTER);
       p.fill(255);
       p.textSize(fontSize);
-      p.text("Light", lightSlider.x * 2 + lightSlider.width, 25);
-      p.text("Humidity", humiditySlider.x * 2 + humiditySlider.width, 45);
-      p.text("Pressure", pressureSlider.x * 2 + pressureSlider.width, 65);
-      p.text("IAQ", iaqSlider.x * 2 + iaqSlider.width, 85);
-      p.text("Temperature", temperatureSlider.x * 2 + temperatureSlider.width, 105);
-      p.text("CO2", co2Slider.x * 2 + co2Slider.width, 125);
+      p.text("Light", lightSlider.x * 2 + lightSlider.width, 1.5*lineHeight);
+      p.text("Humidity", humiditySlider.x * 2 + humiditySlider.width, 2.5*lineHeight);
+      p.text("Pressure", pressureSlider.x * 2 + pressureSlider.width, 3.5*lineHeight);
+      p.text("IAQ", iaqSlider.x * 2 + iaqSlider.width, 4.5*lineHeight);
+      p.text("Temperature", temperatureSlider.x * 2 + temperatureSlider.width, 5.5*lineHeight);
+      p.text("CO2", co2Slider.x * 2 + co2Slider.width, 6.5*lineHeight);
       p.textSize(20);
-      p.text("Demo Version", 10, 150);
+      p.text("Demo Version", 10, 7.5*lineHeight);
       p.textSize(fontSize*0.8);
-      p.text("Use sliders to change Current output", 10, 170);
-      p.text("'24 Hours' and 'Since Initialization' stats are randomized on load", 10, 190);
-      p.text("Current conditions impact on long-term vitals are accelerated 5000x compared to real-time data stream", 10, 210);
+      p.text("Use sliders to change Current output", 10, 8.5*lineHeight);
+      p.text("'24 Hours' and 'Since Initialization' stats are randomized on load", 10, 9.5*lineHeight);
+      p.text("Current conditions impact on long-term vitals are accelerated 5000x compared to real-time data stream", 10, 10.5*lineHeight);
     }
     p.textSize(fontSize);
     p.fill(255);
