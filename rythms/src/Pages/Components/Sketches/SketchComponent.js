@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import p5 from 'p5';
-import myP5Sketch from './Landscape'; // Import your p5 sketch
+import myP5Sketch from './Sandbox'; // Import your p5 sketch
 
 const P5Wrapper = () => {
   const sketchRef = useRef();

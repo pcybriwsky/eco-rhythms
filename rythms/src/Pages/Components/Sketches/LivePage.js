@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import FadeIn from 'react-fade-in/lib/FadeIn';
-import SketchComponent from './SketchComponent';
+import SketchComponent from './SketchComponentLive';
 
 const AboutMe = () => {
     return (
