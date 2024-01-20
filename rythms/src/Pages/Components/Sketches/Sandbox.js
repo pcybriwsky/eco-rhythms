@@ -183,18 +183,18 @@ const myP5Sketch = (p) => {
       p.textAlign(p.LEFT, p.CENTER);
       p.fill(255);
       p.textSize(fontSize);
-      p.text("Light", lightSlider.x * 2 + lightSlider.width, 1.5*lineHeight);
-      p.text("Humidity", humiditySlider.x * 2 + humiditySlider.width, 2.5*lineHeight);
-      p.text("Pressure", pressureSlider.x * 2 + pressureSlider.width, 3.5*lineHeight);
-      p.text("IAQ", iaqSlider.x * 2 + iaqSlider.width, 4.5*lineHeight);
-      p.text("Temperature", temperatureSlider.x * 2 + temperatureSlider.width, 5.5*lineHeight);
-      p.text("CO2", co2Slider.x * 2 + co2Slider.width, 6.5*lineHeight);
+      p.text("Light", lightSlider.x * 2 + lightSlider.width, 1.25*lineHeight);
+      p.text("Humidity", humiditySlider.x * 2 + humiditySlider.width, 2.25*lineHeight);
+      p.text("Pressure", pressureSlider.x * 2 + pressureSlider.width, 3.25*lineHeight);
+      p.text("IAQ", iaqSlider.x * 2 + iaqSlider.width, 4.25*lineHeight);
+      p.text("Temperature", temperatureSlider.x * 2 + temperatureSlider.width, 5.25*lineHeight);
+      p.text("CO2", co2Slider.x * 2 + co2Slider.width, 6.25*lineHeight);
       p.textSize(20);
-      p.text("Demo Version", 10, 7.5*lineHeight);
+      p.text("Demo Version", 10, 7.25*lineHeight);
       p.textSize(fontSize*0.8);
-      p.text("Use sliders to change Current output", 10, 8.5*lineHeight);
-      p.text("'24 Hours' and 'Since Initialization' stats are randomized on load", 10, 9.5*lineHeight);
-      p.text("Current conditions impact on long-term vitals are accelerated 5000x compared to real-time data stream", 10, 10.5*lineHeight);
+      p.text("Use sliders to change Current output", 10, 8.25*lineHeight);
+      p.text("'24 Hours' and 'Since Initialization' stats are randomized on load", 10, 9.25*lineHeight);
+      p.text("Current conditions impact on long-term vitals are accelerated 5000x compared to real-time data stream", 10, 10.25*lineHeight);
     }
     p.textSize(fontSize);
     p.fill(255);
