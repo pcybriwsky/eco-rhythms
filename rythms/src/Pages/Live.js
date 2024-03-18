@@ -6,6 +6,7 @@ const Home = () => {
   return (
     <div className="App bg-background text-text">
       <Drawing />
+      {/* Comment */}
     </div>
   );
 }
