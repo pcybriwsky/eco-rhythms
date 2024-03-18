@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "@indistinguishable-from-magic/magic-js": "^1.0.1",
-    "@indistinguishable-from-magic/nexus-js": "^1.0.0",
     "@p5-wrapper/react": "^4.3.2",
     "@rollup/plugin-babel": "^6.0.4",
     "@testing-library/jest-dom": "^5.17.0",
