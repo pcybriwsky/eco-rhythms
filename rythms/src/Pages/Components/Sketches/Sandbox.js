@@ -11,10 +11,10 @@ const myP5Sketch = (p) => {
     p.emoji = p.loadFont("NotoEmoji-Regular.ttf")
   }
 
-  let lightSlider, humiditySlider, pressureSlider, iaqSlider, temperatureSlider, co2Slider;
-  let lightSliderVal, humiditySliderVal, pressureSliderVal, iaqSliderVal, temperatureSliderVal, co2SliderVal;
+  let lightSlider, humiditySlider, pressureSlider, aqiSlider, temperatureSlider, co2Slider;
+  let lightSliderVal, humiditySliderVal, pressureSliderVal, aqiSliderVal, temperatureSliderVal, co2SliderVal;
 
-  let lightMulti, humidityMulti, pressureMulti, iaqMulti, temperatureMulti, co2Multi;
+  let lightMulti, humidityMulti, pressureMulti, aqiMulti, temperatureMulti, co2Multi;
 
   let initialization = new Date().getTime()
 
@@ -22,7 +22,7 @@ const myP5Sketch = (p) => {
     light: 0,
     humidity: 0,
     pressure: 0,
-    iaq: 0,
+    aqi: 0,
     temperature: 0,
     co2: 0,
   }
@@ -31,7 +31,7 @@ const myP5Sketch = (p) => {
     light: 0,
     humidity: 0,
     pressure: 0,
-    iaq: 0,
+    aqi: 0,
     temperature: 0,
     co2: 0,
   }
@@ -40,7 +40,7 @@ const myP5Sketch = (p) => {
     light: 0,
     humidity: 0,
     pressure: 0,
-    iaq: 0,
+    aqi: 0,
     temperature: 0,
     co2: 0,
   }
@@ -59,21 +59,21 @@ const myP5Sketch = (p) => {
     lightSlider = p.createSlider(0, 4095, 2000);
     humiditySlider = p.createSlider(0, 90, 45);
     pressureSlider = p.createSlider(980, 1050, 1015);
-    iaqSlider = p.createSlider(0, 500, 250);
+    aqiSlider = p.createSlider(0, 500, 250);
     temperatureSlider = p.createSlider(-10, 40, 15);
     co2Slider = p.createSlider(200, 1500, 550);
 
     lightSlider.position(10, lineHeight);
     humiditySlider.position(10, 2 * lineHeight);
     pressureSlider.position(10, 3 * lineHeight);
-    iaqSlider.position(10, 4 * lineHeight);
+    aqiSlider.position(10, 4 * lineHeight);
     temperatureSlider.position(10, 5 * lineHeight);
     co2Slider.position(10, 6 * lineHeight);
 
     lightSliderVal = lightSlider.value(); // Range is 0-4095
     humiditySliderVal = humiditySlider.value(); // Range is 0-90
     pressureSliderVal = pressureSlider.value(); // Range is 300 hPa to 1100 hPa
-    iaqSliderVal = iaqSlider.value(); // Range is 0-500
+    aqiSliderVal = aqiSlider.value(); // Range is 0-500
     temperatureSliderVal = temperatureSlider.value(); // Range is -40 to 85 degrees C
     co2SliderVal = co2Slider.value(); // Ask Lance
     typingWidth = p.width / 10;
@@ -81,14 +81,14 @@ const myP5Sketch = (p) => {
     dayObject.light = p.random(0, 4095);
     dayObject.humidity = p.random(0, 90);
     dayObject.pressure = p.random(980, 1050);
-    dayObject.iaq = p.random(0, 500);
+    dayObject.aqi = p.random(0, 500);
     dayObject.temperature = p.random(-10, 38);
     dayObject.co2 = p.random(200, 1500);
 
     allTimeObject.light = p.random(0, 4095);
     allTimeObject.humidity = p.random(0, 90);
     allTimeObject.pressure = p.random(980, 1050);
-    allTimeObject.iaq = p.random(0, 500);
+    allTimeObject.aqi = p.random(0, 500);
     allTimeObject.temperature = p.random(-10, 38);
     allTimeObject.co2 = p.random(200, 1500)
 
@@ -131,14 +131,14 @@ const myP5Sketch = (p) => {
     lightSlider.show();
     humiditySlider.show();
     pressureSlider.show();
-    iaqSlider.show();
+    aqiSlider.show();
     temperatureSlider.show();
     co2Slider.show();
 
     let light = lightSlider.value(); // Range is 0-4095
     let humidity = humiditySlider.value(); // Range is 0-90
     let pressure = pressureSlider.value(); // Range is 300 hPa to 1100 hPa
-    let iaq = iaqSlider.value(); // Range is 0-500
+    let aqi = aqiSlider.value(); // Range is 0-500
     let temperature = temperatureSlider.value(); // Range is -40 to 85 degrees C
     let co2 = co2Slider.value(); // Ask Lance
 
@@ -149,7 +149,7 @@ const myP5Sketch = (p) => {
     currentObject.light = light;
     currentObject.humidity = humidity;
     currentObject.pressure = pressure;
-    currentObject.iaq = iaq;
+    currentObject.aqi = aqi;
     currentObject.temperature = temperature;
     currentObject.co2 = co2;
 
@@ -160,7 +160,7 @@ const myP5Sketch = (p) => {
     dayObject.light = light * multi + dayObject.light * (1 - multi);
     dayObject.humidity = humidity * multi + dayObject.humidity * (1 - multi);
     dayObject.pressure = pressure * multi + dayObject.pressure * (1 - multi);
-    dayObject.iaq = iaq * multi + dayObject.iaq * (1 - multi);
+    dayObject.aqi = aqi * multi + dayObject.aqi * (1 - multi);
     dayObject.temperature = temperature * multi + dayObject.temperature * (1 - multi);
     dayObject.co2 = co2 * multi + dayObject.co2 * (1 - multi);
 
@@ -169,7 +169,7 @@ const myP5Sketch = (p) => {
     allTimeObject.light = light * multi + allTimeObject.light * (1 - multi);
     allTimeObject.humidity = humidity * multi + allTimeObject.humidity * (1 - multi);
     allTimeObject.pressure = pressure * multi + allTimeObject.pressure * (1 - multi);
-    allTimeObject.iaq = iaq * multi + allTimeObject.iaq * (1 - multi);
+    allTimeObject.aqi = aqi * multi + allTimeObject.aqi * (1 - multi);
     allTimeObject.temperature = temperature * multi + allTimeObject.temperature * (1 - multi);
     allTimeObject.co2 = co2 * multi + allTimeObject.co2 * (1 - multi);
 
@@ -187,7 +187,7 @@ const myP5Sketch = (p) => {
       p.text("Light", lightSlider.x * 2 + lightSlider.width, 1.25 * lineHeight);
       p.text("Humidity", humiditySlider.x * 2 + humiditySlider.width, 2.25 * lineHeight);
       p.text("Pressure", pressureSlider.x * 2 + pressureSlider.width, 3.25 * lineHeight);
-      p.text("IAQ", iaqSlider.x * 2 + iaqSlider.width, 4.25 * lineHeight);
+      p.text("AQI", aqiSlider.x * 2 + aqiSlider.width, 4.25 * lineHeight);
       p.text("Temperature", temperatureSlider.x * 2 + temperatureSlider.width, 5.25 * lineHeight);
       p.text("CO2", co2Slider.x * 2 + co2Slider.width, 6.25 * lineHeight);
       p.textSize(20);
@@ -208,16 +208,16 @@ const myP5Sketch = (p) => {
     p.textSize(fontSize);
     p.fill(255);
     let t = p.frameCount / 150
-    p.drawNebula(currentObject.light, currentObject.temperature, currentObject.humidity, currentObject.pressure, currentObject.iaq, currentObject.co2, t, center)
+    p.drawNebula(currentObject.light, currentObject.temperature, currentObject.humidity, currentObject.pressure, currentObject.aqi, currentObject.co2, t, center)
     p.fill(255);
     center = 4 * p.height / 8;
-    p.drawNebula(dayObject.light, dayObject.temperature, dayObject.humidity, dayObject.pressure, dayObject.iaq, dayObject.co2, t, center)
+    p.drawNebula(dayObject.light, dayObject.temperature, dayObject.humidity, dayObject.pressure, dayObject.aqi, dayObject.co2, t, center)
 
     p.fill(255);
     center = 6 * p.height / 8;
 
 
-    p.drawNebula(allTimeObject.light, allTimeObject.temperature, allTimeObject.humidity, allTimeObject.pressure, allTimeObject.iaq, allTimeObject.co2, t, center)
+    p.drawNebula(allTimeObject.light, allTimeObject.temperature, allTimeObject.humidity, allTimeObject.pressure, allTimeObject.aqi, allTimeObject.co2, t, center)
     p.graphNebula();
 
     p.textAlign(p.RIGHT, p.BOTTOM);
@@ -240,7 +240,7 @@ const myP5Sketch = (p) => {
       humiditySlider.hide()
       pressureSlider.hide()
       co2Slider.hide()
-      iaqSlider.hide()
+      aqiSlider.hide()
       temperatureSlider.hide()
 
       p.textFont(p.font);
@@ -254,7 +254,7 @@ const myP5Sketch = (p) => {
       p.textAlign(p.CENTER, p.CENTER);
       let textPadding = 60;
       p.text("This is a demo version of a real-time generative and data art piece to be placed in Charlottesville, VA. The purpose of the piece is to highlight 'nebulous' changes in the environment over the course of its existence through a series of moving rings that resemble nebulae.", textPadding, 2 * p.height / 8, p.width - 2 * textPadding);
-      p.text("The piece will be connected to a sensor that measures the environment around it, including light, humidity, pressure, IAQ, temperature, and CO2 levels. It will simultaneously display the current conditions, as well as the conditions over the last 24 hours and since initialization.", textPadding, 2 * p.height / 8 + lineHeight*4,  p.width - 2 * textPadding);
+      p.text("The piece will be connected to a sensor that measures the environment around it, including light, humidity, pressure, AQI, temperature, and CO2 levels. It will simultaneously display the current conditions, as well as the conditions over the last 24 hours and since initialization.", textPadding, 2 * p.height / 8 + lineHeight*4,  p.width - 2 * textPadding);
       p.text("The piece will be made of a series of rings that will change color and size based on the current conditions. The rings will be made of a series of points that will be connected by a curve.", textPadding, 2 * p.height / 8 + lineHeight*8,  p.width - 2 * textPadding);
       p.text("Certain conditions (temperature + pressure) are mapped to a range that is specific to Charlottesvilles 2023 highs and lows to create a relevant range in outputs for this project. More information on how each impact the piece can be found below.", textPadding, 2 * p.height / 8 + lineHeight*12,  p.width - 2 * textPadding);
 
@@ -291,8 +291,8 @@ const myP5Sketch = (p) => {
       p.text("💨", p.width / 2, 5.5 * p.height / 8);
       p.textFont(p.font);
       p.textSize(fontSize);
-      p.text("IAQ", p.width / 2, 5.5 * p.height / 8 + lineHeight);
-      p.text("The IAQ impacts the texture of the rings, with higher IAQ adding more noise and texture. Values ranging from 0 - 500 ppm.", textPadding, 5.5 * p.height / 8 + lineHeight*2,  p.width - 2 * textPadding);
+      p.text("AQI", p.width / 2, 5.5 * p.height / 8 + lineHeight);
+      p.text("The AQI impacts the texture of the rings, with higher AQI adding more noise and texture. Values ranging from 0 - 500 ppm.", textPadding, 5.5 * p.height / 8 + lineHeight*2,  p.width - 2 * textPadding);
 
       p.textFont(p.emoji);
       p.textSize(emojiSize);
@@ -317,12 +317,12 @@ const myP5Sketch = (p) => {
 
 
 
-  p.drawNebula = (light, temp, humidity, pressure, iaq, co2, t, center) => {
+  p.drawNebula = (light, temp, humidity, pressure, aqi, co2, t, center) => {
     let tempMulti = p.map(temp, -10, 38, 0, 1);
     let pressureMulti = p.map(pressure, 980, 1050, 0, 1, true); // p
     let lightMulti = p.map(light, 0, 4095, 0, 1, true);
     let co2Multi = p.map(co2, 200, 1500, 0, 1, true);
-    let iaqMulti = p.map(iaq, 0, 500, 0.1, 1, true);
+    let aqiMulti = p.map(aqi, 0, 500, 0.1, 1, true);
     let humidityMulti = p.map(humidity, 0, 80, 0, 1, true);
 
     let angleStep = Math.floor(60 * (2.1 - 2 * (humidityMulti)))
@@ -331,7 +331,7 @@ const myP5Sketch = (p) => {
     for (let i = n; i >= min; i -= 1) {
       let alpha = p.pow(1 - ((i) / n), 3 - 2 * (lightMulti));
       let size = (radius + i * inter) * ((1 - co2Multi) + 0.1);
-      let k = kMax * p.sqrt((i * (iaqMulti + 0.1)) / n)
+      let k = kMax * p.sqrt((i * (aqiMulti + 0.1)) / n)
       let noisiness = maxNoise * (i / n) * (1.6 - 1.5*pressureMulti);
       p.strokeWeight(1 + tempMulti + 2 * lightMulti + (i / n) * 5);
       p.stroke(255, 0, 0, alpha * 255);
@@ -362,7 +362,7 @@ const myP5Sketch = (p) => {
     let lightLength = p.map(currentLightConversion, 0, 950, 0, p.width / 10, true);
     let humidityLength = p.map(currentObject.humidity, 0, 90, 0, p.width / 10, true);
     let pressureLength = p.map(currentObject.pressure, 980, 1050, 0, p.width / 10, true);
-    let iaqLength = p.map(currentObject.iaq, 0, 500, 0, p.width / 10, true);
+    let aqiLength = p.map(currentObject.aqi, 0, 500, 0, p.width / 10, true);
     let temperatureLength = p.map(currentObject.temperature, -10, 38, 0, p.width / 10, true);
     let co2Length = p.map(currentObject.co2, 200, 1500, 0, p.width / 10, true);
 
@@ -378,7 +378,7 @@ const myP5Sketch = (p) => {
     p.rect(50, center + 20, lightLength, 10);
     p.rect(50, center + 40, humidityLength, 10);
     p.rect(50, center + 60, pressureLength, 10);
-    p.rect(50, center + 80, iaqLength, 10);
+    p.rect(50, center + 80, aqiLength, 10);
     p.rect(50, center + 100, temperatureLength, 10);
     p.rect(50, center + 120, co2Length, 10);
 
@@ -394,7 +394,7 @@ const myP5Sketch = (p) => {
     let dayLightLength = p.map(dayLightConversion, 0, 950, 0, p.width / 10, true);
     let dayHumidityLength = p.map(dayObject.humidity, 0, 90, 0, p.width / 10, true);
     let dayPressureLength = p.map(dayObject.pressure, 980, 1050, 0, p.width / 10, true);
-    let dayIaqLength = p.map(dayObject.iaq, 0, 500, 0, p.width / 10, true);
+    let dayAqiLength = p.map(dayObject.aqi, 0, 500, 0, p.width / 10, true);
     let dayTemperatureLength = p.map(dayObject.temperature, -10, 38, 0, p.width / 10, true);
     let dayCo2Length = p.map(dayObject.co2, 200, 1500, 0, p.width / 10, true);
 
@@ -412,7 +412,7 @@ const myP5Sketch = (p) => {
     p.rect(50, dayCenter + 20, dayLightLength, 10);
     p.rect(50, dayCenter + 40, dayHumidityLength, 10);
     p.rect(50, dayCenter + 60, dayPressureLength, 10);
-    p.rect(50, dayCenter + 80, dayIaqLength, 10);
+    p.rect(50, dayCenter + 80, dayAqiLength, 10);
     p.rect(50, dayCenter + 100, dayTemperatureLength, 10);
     p.rect(50, dayCenter + 120, dayCo2Length, 10);
 
@@ -426,7 +426,7 @@ const myP5Sketch = (p) => {
     let allTimeLightLength = p.map(allTimeLightConversion, 0, 950, 0, p.width / 10, true);
     let allTimeHumidityLength = p.map(allTimeObject.humidity, 0, 90, 0, p.width / 10, true);
     let allTimePressureLength = p.map(allTimeObject.pressure, 980, 1050, 0, p.width / 10, true);
-    let allTimeIaqLength = p.map(allTimeObject.iaq, 0, 500, 0, p.width / 10, true);
+    let allTimeAqiLength = p.map(allTimeObject.aqi, 0, 500, 0, p.width / 10, true);
     let allTimeTemperatureLength = p.map(allTimeObject.temperature, -10, 38, 0, p.width / 10, true);
     let allTimeCo2Length = p.map(allTimeObject.co2, 200, 1500, 0, p.width / 10);
 
@@ -444,7 +444,7 @@ const myP5Sketch = (p) => {
     p.rect(50, allTimeCenter + 20, allTimeLightLength, 10);
     p.rect(50, allTimeCenter + 40, allTimeHumidityLength, 10);
     p.rect(50, allTimeCenter + 60, allTimePressureLength, 10);
-    p.rect(50, allTimeCenter + 80, allTimeIaqLength, 10);
+    p.rect(50, allTimeCenter + 80, allTimeAqiLength, 10);
     p.rect(50, allTimeCenter + 100, allTimeTemperatureLength, 10);
     p.rect(50, allTimeCenter + 120, allTimeCo2Length, 10);
 
@@ -473,7 +473,7 @@ const myP5Sketch = (p) => {
       }
       else if (valueIndex === 3) {
         lineEmoji.push("💨");
-        p.newLine("IAQ: " + currentObject.iaq.toFixed(2) + " ppm");
+        p.newLine("AQI: " + currentObject.aqi.toFixed(2) + " ppm");
       }
       else if (valueIndex === 4) {
         lineEmoji.push("🌡️");
