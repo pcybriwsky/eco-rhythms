@@ -2,7 +2,7 @@
 import { InkLine } from "../Functions/InkLine";
 import { Poly } from "../Functions/Watercolor";
 import { dataURLtoFile, shareFile } from "../Functions/filesharing";
-import * as magic from "@indistinguishable-from-magic/nexus-js"
+import * as magic from "@indistinguishable-from-magic/magic-js"
 
 
 
@@ -108,7 +108,6 @@ const myP5Sketch = (p) => {
 
   p.draw = () => {
     if (isMagic && magic.modules.light != null && magic.modules.light != undefined) {
-      // console.log(magic.modules)
       p.angleMode(p.DEGREES);
       p.noFill();
       p.noStroke();
@@ -119,7 +118,7 @@ const myP5Sketch = (p) => {
       let light = Number(magic.modules.light.raw.brightness); // Range is 0-4095
       let humidity = Number(magic.modules.environment.raw.humidity); // Range is 0-90
       let pressure = Number(magic.modules.environment.raw.pressure) / 100; // Range is 300 hPa to 1100 hPa
-      let aqi = Number(magic.modules.environment.raw.aqi); // Range is 0-500
+      let aqi = Number(magic.modules.environment.raw.iaq); // Range is 0-500
       let temperature = Number(magic.modules.environment.raw.temperature); // Range is -40 to 85 degrees C
       let co2 = Number(magic.modules.environment.raw.co2); // Ask Lance 
 
@@ -175,10 +174,6 @@ const myP5Sketch = (p) => {
       let t = p.frameCount / 150
 
       p.drawNebula(currentObject.light, currentObject.temperature, currentObject.humidity, currentObject.pressure, currentObject.aqi, currentObject.co2, t, center)
-
-
-
-
       p.fill(255);
       center = 4 * p.height / 8;
 
@@ -306,8 +301,6 @@ const myP5Sketch = (p) => {
 
   }
 
-
-
   p.drawNebula = (light, temp, humidity, pressure, aqi, co2, t, center) => {
     let tempMulti = p.map(temp, -10, 38, 0, 1);
     let pressureMulti = p.map(pressure, 980, 1050, 0, 1, true); // p
@@ -315,7 +308,6 @@ const myP5Sketch = (p) => {
     let co2Multi = p.map(co2, 200, 1500, 0, 1, true);
     let aqiMulti = p.map(aqi, 0, 500, 0.1, 1, true);
     let humidityMulti = p.map(humidity, 0, 80, 0, 1, true);
-
     let angleStep = Math.floor(60 * (2.1 - 2 * (humidityMulti)))
     let min = 0 + (n / 2) * (co2Multi);
 
@@ -323,6 +315,7 @@ const myP5Sketch = (p) => {
       let alpha = p.pow(1 - ((i) / n), 3 - 2 * (lightMulti));
       let size = (radius + i * inter) * ((1 - co2Multi) + 0.1);
       let k = kMax * p.sqrt((i * (aqiMulti + 0.1)) / n)
+
       let noisiness = maxNoise * (i / n) * (1.6 - 1.5*pressureMulti);
       p.strokeWeight(1 + tempMulti + 2 * lightMulti + (i / n) * 5);
       p.stroke(255, 0, 0, alpha * 255);
@@ -494,7 +487,7 @@ const myP5Sketch = (p) => {
 
   // Rename and restructure blob
   p.lightRing = (size, xCenter, yCenter, k, t, noisiness, multi) => {
-    p.noFill()
+    p.noFill();
     p.beginShape();
     let inc = 360 / multi;
     for (let ang = 0; ang < 360 + 2 * inc; ang += inc) {
@@ -576,7 +569,6 @@ const myP5Sketch = (p) => {
 
   p.mousePressed = async () => {
     if (p.mouseX > p.width - 100 && p.mouseY < 100 && !showAboutInfo) {
-      console.log('info')
       p.showAbout();
     }
     else if (showAboutInfo) {

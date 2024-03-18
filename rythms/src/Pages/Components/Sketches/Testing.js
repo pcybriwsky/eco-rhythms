@@ -2,7 +2,7 @@
 import { InkLine } from "../Functions/InkLine";
 import { Poly } from "../Functions/Watercolor";
 import { dataURLtoFile, shareFile } from "../Functions/filesharing";
-import * as magic from "@indistinguishable-from-magic/nexus-js"
+import * as magic from "@indistinguishable-from-magic/magic-js"
 import p5 from "p5";
 
 
@@ -71,6 +71,7 @@ const myP5Sketch = (p) => {
 
   let fontSize = 20;
   p.draw = () => {
+    console.log(magic.modules);
     if (isMagic && magic.modules.light != null && magic.modules.light != undefined) {
       p.angleMode(p.DEGREES);
       p.noFill();

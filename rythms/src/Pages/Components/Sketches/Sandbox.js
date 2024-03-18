@@ -1,7 +1,7 @@
 import { InkLine } from "../Functions/InkLine";
 import { Poly } from "../Functions/Watercolor";
 import { dataURLtoFile, shareFile } from "../Functions/filesharing";
-import * as magic from "@indistinguishable-from-magic/nexus-js"
+import * as magic from "@indistinguishable-from-magic/magic-js"
 
 
 
