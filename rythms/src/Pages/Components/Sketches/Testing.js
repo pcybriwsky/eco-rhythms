@@ -4,6 +4,27 @@ import { Poly } from "../Functions/Watercolor";
 import { dataURLtoFile, shareFile } from "../Functions/filesharing";
 import * as magic from "@indistinguishable-from-magic/magic-js"
 import p5 from "p5";
+import { collection, addDoc, getDocs } from "firebase/firestore";
+import { db } from "../../../firebase.init";
+
+// try {
+//   console.log("Trying to add a document");
+//   const docRef = await addDoc(collection(db, "users"), {
+//     first: "Ada",
+//     last: "Lovelace",
+//     born: 1815
+//   });
+//   console.log("Document written with ID: ", docRef.id);
+// } catch (e) {
+//   console.error("Error adding document: ", e);
+// }
+
+async function getDocsFromCollection() {
+  const querySnapshot = await getDocs(collection(db, "users"));
+  querySnapshot.forEach((doc) => {
+    console.log(`${doc.id} => ${doc.data().last}`);
+  });
+}
 
 
 
@@ -54,6 +75,7 @@ const myP5Sketch = (p) => {
     p.pixelDensity(1);
     p.frameRate(10);
     p.createCanvas(window.innerWidth, window.innerHeight);
+    // setInterval(getDocsFromCollection, 1000); // Pass the function reference without calling it
 
   }
 
@@ -71,7 +93,6 @@ const myP5Sketch = (p) => {
 
   let fontSize = 20;
   p.draw = () => {
-    console.log(magic.modules);
     if (isMagic && magic.modules.light != null && magic.modules.light != undefined) {
       p.angleMode(p.DEGREES);
       p.noFill();
@@ -120,7 +141,7 @@ const myP5Sketch = (p) => {
         p.stroke(255, 0, 0)
         p.strokeWeight(1);
 
-        
+
 
       }
 
@@ -133,28 +154,28 @@ const myP5Sketch = (p) => {
       // p.fill(255);
 
       // use an arc and the arc are lines that gradually flatten with light
-      if(light > 300){ 
+      if (light > 300) {
         let eyeSize = p.map(light, 300, 4095, 0.0001, ellipseSize / 6);
-        let eyeMiddle = p.map(light, 300, 4095, 0.0001, ellipseSize/24);
-        
+        let eyeMiddle = p.map(light, 300, 4095, 0.0001, ellipseSize / 24);
+
         p.arc(p.width / 2 - ellipseSize / 6, p.height / 2 - ellipseSize / 6, ellipseSize / 6, eyeSize, -180, 0);
         p.arc(p.width / 2 - ellipseSize / 6, p.height / 2 - ellipseSize / 6, ellipseSize / 6, eyeMiddle, -180, 0);
 
         p.arc(p.width / 2 + ellipseSize / 6, p.height / 2 - ellipseSize / 6, ellipseSize / 6, eyeSize, -180, 0);
         p.arc(p.width / 2 + ellipseSize / 6, p.height / 2 - ellipseSize / 6, ellipseSize / 6, eyeMiddle, -180, 0);
-        
+
 
         let mouthSize = p.map(light, 300, 4095, 0.0001, ellipseSize / 12);
         let mouthMiddle = p.map(light, 300, 4095, 0.0001, ellipseSize / 24);
-        
+
         p.arc(p.width / 2, p.height / 2 + ellipseSize / 6, ellipseSize / 3, mouthSize, 0, 180);
-        p.arc(p.width / 2, p.height / 2 + ellipseSize / 6, ellipseSize / 3, mouthMiddle, 0, 180);      
+        p.arc(p.width / 2, p.height / 2 + ellipseSize / 6, ellipseSize / 3, mouthMiddle, 0, 180);
       }
 
 
-      else{
+      else {
         let eyeSize = p.map(light, 0, 300, ellipseSize / 6, 0.0001);
-        let eyeMiddle = p.map(light, 0, 300, ellipseSize/24, 0.0001);
+        let eyeMiddle = p.map(light, 0, 300, ellipseSize / 24, 0.0001);
 
         p.arc(p.width / 2 - ellipseSize / 6, p.height / 2 - ellipseSize / 6, ellipseSize / 6, eyeSize, 0, 180);
         p.arc(p.width / 2 - ellipseSize / 6, p.height / 2 - ellipseSize / 6, ellipseSize / 6, eyeMiddle, 0, 180);
@@ -171,8 +192,8 @@ const myP5Sketch = (p) => {
 
 
       // p.arc(p.width / 2 + ellipseSize / 6, p.height / 2 - ellipseSize / 6, ellipseSize / 6, ellipseSize / 6, 0, 180);
-      
-      
+
+
 
 
 

@@ -7,6 +7,7 @@ import './App.css';
 const Demo = lazy(() => import("./Pages/Home"))
 const Live = lazy(() => import("./Pages/Live"))
 const Test = lazy(() => import("./Pages/Test"))
+const Timeline = lazy(() => import("./Pages/Timeline"))
 
 
 
@@ -17,6 +18,8 @@ function App() {
         <Route path="/" element={<Demo />} />
         <Route path="/live" element={<Live />} />
         <Route path="/test" element={<Test />} />
+        <Route path="/timeline" element={<Timeline />} />
+        
       </Routes>
     </Suspense>
   );

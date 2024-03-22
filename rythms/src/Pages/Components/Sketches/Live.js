@@ -3,6 +3,50 @@ import { InkLine } from "../Functions/InkLine";
 import { Poly } from "../Functions/Watercolor";
 import { dataURLtoFile, shareFile } from "../Functions/filesharing";
 import * as magic from "@indistinguishable-from-magic/magic-js"
+import { collection, addDoc, getDocs } from "firebase/firestore";
+import { db } from "../../../firebase.init";
+
+let currentObject = {
+  light: 0,
+  humidity: 0,
+  pressure: 0,
+  aqi: 0,
+  temperature: 0,
+  co2: 0,
+}
+
+let dayObject = {
+  light: 0,
+  humidity: 0,
+  pressure: 0,
+  aqi: 0,
+  temperature: 0,
+  co2: 0,
+}
+
+let allTimeObject = {
+  light: 0,
+  humidity: 0,
+  pressure: 0,
+  aqi: 0,
+  temperature: 0,
+  co2: 0,
+}
+
+async function addDocToCollection() {
+  try {
+    console.log("Trying to add a document");
+    const docRef = await addDoc(collection(db, "nebulae"), {
+      currentObject: currentObject,
+      dayObject: dayObject,
+      allTimeObject: allTimeObject,
+      timestamp: new Date().getTime()
+    });
+    console.log("Document written with ID: ", docRef.id);
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+}
 
 
 
@@ -19,32 +63,7 @@ const myP5Sketch = (p) => {
 
   let initialization = new Date().getTime()
 
-  let currentObject = {
-    light: 0,
-    humidity: 0,
-    pressure: 0,
-    aqi: 0,
-    temperature: 0,
-    co2: 0,
-  }
-
-  let dayObject = {
-    light: 0,
-    humidity: 0,
-    pressure: 0,
-    aqi: 0,
-    temperature: 0,
-    co2: 0,
-  }
-
-  let allTimeObject = {
-    light: 0,
-    humidity: 0,
-    pressure: 0,
-    aqi: 0,
-    temperature: 0,
-    co2: 0,
-  }
+ 
 
 
   p.setup = async () => {
@@ -78,11 +97,8 @@ const myP5Sketch = (p) => {
   }
 
 
-
-
-
   let lineHeight = 30;
-  let fontSize = lineHeight * 0.8
+  let fontSize = lineHeight * 0.9
   let emojiSize = fontSize * 0.8;
   let maxLines = 6;
   let currentLine = "";
@@ -104,10 +120,17 @@ const myP5Sketch = (p) => {
     showAboutInfo = true;
   }
 
-
-
+  let initializeFirebaseWrite = false
   p.draw = () => {
     if (isMagic && magic.modules.light != null && magic.modules.light != undefined) {
+      // Not initialized yet
+      
+      // if(!initializeFirebaseWrite){
+      //   initializeFirebaseWrite = true;
+      //   addDocToCollection();
+      //   setInterval(addDocToCollection, 1000 * 60 * 60 * 6);
+      // }
+
       p.angleMode(p.DEGREES);
       p.noFill();
       p.noStroke();
